@@ -21,4 +21,7 @@ import app.views as views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="index"),
+    path('chord_diagram', views.chord_diagram, name="chord_diagram"),
+    path('data_matrix', views.data_matrix, name="data_matrix"),
+    path('upload_data', views.upload_data, name="upload_data"),
 ]
