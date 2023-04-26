@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib import messages
 import pandas as pd
-import scipy.sparse as sp
+# import scipy.sparse as sp
 import numpy as np
 
 
