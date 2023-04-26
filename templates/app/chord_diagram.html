@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Online Text Visualizer</title>
+  <title>Online Chord Diagram</title>
 
   <!-- Include the latest version of Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -39,120 +39,21 @@
   }
 
   .middle-card {
-    height: 800px;
-    width: 800px;
+    height: 500px;
+    width: 100%;
   }
-
-  /* #my_dataviz {
-    resize: 'horizontal';
-    overflow: 'hidden';
-    width: '10px';
-    height: 'auto'; */
-  /* } */
 
   h1 {
     font-family: 'Sen', sans-serif;
     font-size: 65px;
   }
-
-  .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* height: px; */
-    background: #f1f1f1;
-    flex: none;
-    /* border-top: solid 1px #eee; */
-  }
-
-
-  </style>
+</style>
 
 <body>
-  <!-- <div class="wrapper">
-    <h1>Visualize Connections in Texts</h1>
-  </div> end of wrapper -->
-    
-    <div class="container d-flex justify-content-center align-items-center vh-100">
- 
-      <div class="row">
-          
-        <!-- title -->
-        <div class="col-3 align-self-center" id="titlecolumn">
-          <br>
-          <h1>Visualize Connections in Texts</h1>
-        </div>
-
-        <div class="col-1"></div>
-
-        <div class="col-8">
-          <div class="card middle-card text-center">
-
-            <div class="card-header">
-
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link active" id="dataupload-tab" data-toggle="tab" data-bs-target="#dataupload" href="#dataupload" role="tab" aria-controls="dataupload" aria-selected="true">Insert Data</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link" id="visualization-tab" data-toggle="tab" data-bs-target="#visualization" href="#visualization" role="tab" aria-controls="visualization" aria-selected="false">Visualization</a>
-                </li>
-              </ul>
-            </div>
-
-            <div class="card-body">
-
-              <!-- Tab panes -->
-              <div class="tab-content" id="myTabContent">
-
-                <!-- insert data -->
-                <div class="tab-pane active" id="dataupload" role="tablist" aria-labelledby="dataupload-tab">
-                  <form enctype = "multipart/form-data" action = "{% url 'upload_data' %}" method="post">
-                    {% csrf_token %}
-                    <input type="file" name="excel" type="submit"/>
-                    <br><br>
-                    <div class="text-center">
-                        <button class="d-none d-sm-inline-block btn btn-secondary shadow-sm" type="submit">Upload</button>
-                    </div>
-                  </form>
-                </div>
-
-                <!-- visualization -->
-                <div class="tab-pane" id="visualization" role="tabpanel" aria-labelledby="visualization-tab">
-                  <div id="my_dataviz"></div>
-                </div>
-
-              </div>
-            </div> <!-- end of card-body -->
-          </div> <!-- end of card -->
-        </div> <!-- end of column -->
-
-        <!-- <div class="col-2"></div> -->
-
-      </div> <!-- end of row -->
-    
-  
-    <!-- Footer -->
-    <footer class="footer sticky-offset">
-      <div class="container">
-          <div class="copyright text-center my-auto">
-              <br>
-
-              <!-- automatisch huidige jaar laten zien -->
-              <p>Sam Verhezen &copy; <text id ='year'/></p>
-              
-              <!-- <br><br> -->
-              <a href="https://github.com/samverh" target="_blank">
-                  <!-- <img src="{% static 'img/octo2.png' %}"  width="50" height="50" alt="SV">
-                <img src="{% static 'img/octo5.jpg' %}"  width="50" height="50" alt="SV"> -->
-              </a>
-          </div>
-      </div>
-    </footer>
-    <!-- End of Footer -->
-
-  </div> <!-- end of container -->
+    <div class="wrapper">
+        <h1>Chord</h1>
+        <div id="my_dataviz"></div>
+    </div>
 
   <!-- Include the latest version of Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
@@ -167,7 +68,6 @@
     $(this).tab('show');
   })
 
-  
 let matrix = [[0, 0, 0, 12, 6, 0, 6, 0, 13, 0, 12, 4, 3, 6, 0],
       [0, 0, 21, 0, 0, 22, 0, 0, 9, 32, 0, 0, 0, 0, 13],
       [0, 21, 0, 0, 0, 8, 4, 0, 0, 0, 7, 0, 0, 0, 2],
@@ -218,12 +118,10 @@ let names = ['Klacht',
     function getGradID(d){ return "linkGrad-" + d.source.index + "-" + d.target.index; }
 
     // add element
-    var svg = d3.select("#my_dataviz")
+    var svg = d3.select("body")
     .append("svg")
     .attr("width", width)
-    .attr("height", height)
-    .attr("viewBox", "0 -25 700 700")
-    .attr("preserveAspectRatio", "xMidYMid meet");
+    .attr("height", height);
 
     // draw nodes
     var outer_arc = d3.arc()
@@ -301,5 +199,6 @@ let names = ['Klacht',
     .attr("d", inner_chord)
     .attr("class", "chord")
     .style("fill", function(d){ return "url(#" + getGradID(d) + ")"; })
+// }
 </script>
    
